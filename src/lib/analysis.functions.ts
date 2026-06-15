@@ -108,7 +108,15 @@ export const analyzeCandidate = createServerFn({ method: "POST" })
     const model = gateway(modelName);
     const started = Date.now();
 
-    let usageLog: Record<string, unknown> = {
+    let usageLog: {
+      model: string;
+      prompt_tokens: number | null;
+      completion_tokens: number | null;
+      total_tokens: number | null;
+      latency_ms: number;
+      success: boolean;
+      error: string | null;
+    } = {
       model: modelName,
       prompt_tokens: null,
       completion_tokens: null,
