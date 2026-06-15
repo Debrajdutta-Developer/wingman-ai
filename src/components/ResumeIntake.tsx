@@ -39,7 +39,7 @@ export function ResumeIntake({ onAnalyze, loading, error }: Props) {
         for (let i = 1; i <= pdf.numPages; i++) {
           const page = await pdf.getPage(i);
           const content = await page.getTextContent();
-          out += content.items.map((it: { str?: string }) => it.str ?? "").join(" ") + "\n";
+          out += content.items.map((it) => ("str" in it ? it.str : "")).join(" ") + "\n";
         }
         setText(out.trim());
       } catch (e) {
