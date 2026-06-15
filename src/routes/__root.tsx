@@ -55,6 +55,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/26d7f059-c7ce-4a6d-8969-bfb8a3d8e618",
       },
+      { property: "og:title", content: "NayePankh AI — Talent Discovery & Internship OS" },
+      { name: "twitter:title", content: "NayePankh AI — Talent Discovery & Internship OS" },
+      { name: "description", content: "Wingman AI helps students discover internships, analyze skills, and create personalized career roadmaps." },
+      { property: "og:description", content: "Wingman AI helps students discover internships, analyze skills, and create personalized career roadmaps." },
+      { name: "twitter:description", content: "Wingman AI helps students discover internships, analyze skills, and create personalized career roadmaps." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fc244b2e-3047-4579-ad29-ab774861ed3c/id-preview-26bdc4ec--59abf7b8-fafa-4079-9967-5b5f1302047b.lovable.app-1781524305025.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fc244b2e-3047-4579-ad29-ab774861ed3c/id-preview-26bdc4ec--59abf7b8-fafa-4079-9967-5b5f1302047b.lovable.app-1781524305025.png" },
     ],
 
     links: [
