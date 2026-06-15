@@ -104,68 +104,30 @@ export const analyzeCandidate = createServerFn({ method: "POST" })
     if (!key) throw new Error("Missing LOVABLE_API_KEY");
 
     const gateway = createLovableAiGatewayProvider(key);
-    const modelName = "google/gemini-3-flash-preview";
-    const model = gateway(modelName);
-    const started = Date.now();
-
-    let usageLog: {
-      model: string;
-      prompt_tokens: number | null;
-      completion_tokens: number | null;
-      total_tokens: number | null;
-      latency_ms: number;
-      success: boolean;
-      error: string | null;
-    } = {
-      model: modelName,
-      prompt_tokens: null,
-      completion_tokens: null,
-      total_tokens: null,
-      latency_ms: 0,
-      success: true,
-      error: null,
-    };
+    const model = gateway("google/gemini-3-flash-preview");
 
     try {
-      const result = await generateText({
+      const { text } = await generateText({
         model,
         system: SYSTEM_PROMPT,
         prompt: buildUserPrompt(data.resumeText, data.manualSkills ?? []),
       });
 
-      const usage = (result as unknown as {
-        usage?: { promptTokens?: number; completionTokens?: number; totalTokens?: number };
-      }).usage;
-      usageLog = {
-        ...usageLog,
-        prompt_tokens: usage?.promptTokens ?? null,
-        completion_tokens: usage?.completionTokens ?? null,
-        total_tokens: usage?.totalTokens ?? null,
-        latency_ms: Date.now() - started,
-      };
+      const parsed = extractJson(text) as AnalysisResult;
 
-      const parsed = extractJson(result.text) as AnalysisResult;
+      // Sort matches defensively
       if (Array.isArray(parsed.matches)) {
         parsed.matches.sort((a, b) => (b.matchPercent ?? 0) - (a.matchPercent ?? 0));
       }
-
-      try {
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        await supabaseAdmin.from("ai_usage_logs").insert(usageLog);
-      } catch (e) {
-        console.warn("usage log failed", e);
-      }
-
       return parsed;
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
-      usageLog = { ...usageLog, latency_ms: Date.now() - started, success: false, error: msg };
-      try {
-        const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-        await supabaseAdmin.from("ai_usage_logs").insert(usageLog);
-      } catch {}
-      if (msg.includes("429")) throw new Error("AI rate limit reached. Please try again in a moment.");
-      if (msg.includes("402")) throw new Error("AI credits exhausted. Please add credits to your Lovable workspace.");
+      if (msg.includes("429")) {
+        throw new Error("AI rate limit reached. Please try again in a moment.");
+      }
+      if (msg.includes("402")) {
+        throw new Error("AI credits exhausted. Please add credits to your Lovable workspace.");
+      }
       throw new Error(`Analysis failed: ${msg}`);
     }
   });
