@@ -45,7 +45,7 @@ function Home() {
           top_match_role: top?.role ?? null,
           top_match_percent: top?.matchPercent ?? null,
           hire_recommendation: res.recruiter?.hireRecommendation ?? null,
-          result: res as unknown as Record<string, unknown>,
+          result: res as never,
         });
       } catch (e) {
         console.warn("save analysis failed", e);
