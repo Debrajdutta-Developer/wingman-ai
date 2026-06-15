@@ -83,13 +83,22 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "Multi-agent AI that analyzes your resume, matches you to internships, maps skill gaps, prepares interviews, and builds a 90-day learning roadmap.",
       },
-      { property: "og:title", content: "NayePankh AI — Career Operating System" },
+      { property: "og:title", content: "NayePankh AI — Talent Discovery & Internship OS" },
       {
         property: "og:description",
         content: "Deploy a multi-agent AI workforce to discover internships and accelerate your career.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "NayePankh AI — Talent Discovery & Internship OS" },
+      { name: "description", content: "Platform Overview: Pankh.ai
+Pankh.ai is an enterprise-grade Talent Discovery Operating System (OS) designed to optimize recruitment pipelines, analyze candidate" },
+      { property: "og:description", content: "Platform Overview: Pankh.ai
+Pankh.ai is an enterprise-grade Talent Discovery Operating System (OS) designed to optimize recruitment pipelines, analyze candidate" },
+      { name: "twitter:description", content: "Platform Overview: Pankh.ai
+Pankh.ai is an enterprise-grade Talent Discovery Operating System (OS) designed to optimize recruitment pipelines, analyze candidate" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/26d7f059-c7ce-4a6d-8969-bfb8a3d8e618" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/26d7f059-c7ce-4a6d-8969-bfb8a3d8e618" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
