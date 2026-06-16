@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { ResumeIntake } from "@/components/ResumeIntake";
@@ -76,10 +76,18 @@ function Nav() {
           </p>
         </div>
       </div>
-      <div className="flex items-center gap-2 text-xs">
-        <span className="size-2 rounded-full bg-teal animate-pulse" />
-        <span className="font-mono text-muted uppercase tracking-widest hidden sm:inline">
-          System Active
+      <div className="flex items-center gap-3 text-xs">
+        <Link
+          to="/admin"
+          className="px-3 py-1.5 rounded-md border border-glass-border text-muted hover:text-white hover:border-electric/50 transition font-mono uppercase tracking-widest"
+        >
+          Admin
+        </Link>
+        <span className="flex items-center gap-2">
+          <span className="size-2 rounded-full bg-teal animate-pulse" />
+          <span className="font-mono text-muted uppercase tracking-widest hidden sm:inline">
+            System Active
+          </span>
         </span>
       </div>
     </nav>
